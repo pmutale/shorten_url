@@ -21,10 +21,10 @@ and open your browser to here:
 http://localhost:7070/urls/ui/
 ```
 
-Your OpenAPI definition lives here:
+To run unit tests:
 
 ```
-http://localhost:7070/openapi.json
+$ python3 -m unittest test_shorten_url_controllers.TestDefaultController 
 ```
 
 To launch the integration tests, use tox:
