@@ -20,7 +20,6 @@ steps:
     args:
     - '-c'
     - 'gcloud app create --region=europe-west || exit 0'
-    dir: 'config'
   
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
