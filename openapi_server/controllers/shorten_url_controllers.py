@@ -26,7 +26,7 @@ class UrlShortener:
         if not url_data["short_code"]:
             alphabet = string.ascii_letters + string.digits + string.punctuation
             while True:
-                random_id = "".join(secrets.choice(alphabet) for i in range(9))
+                random_id = "".join(secrets.choice(alphabet) for i in range(6))
                 if (
                     any(c.islower() for c in random_id)
                     and any(c.isupper() for c in random_id)
@@ -45,7 +45,7 @@ class UrlShortener:
         exists = self.client.get(key=short_code_key) is not None
         if exists:
             return make_response(jsonify({"info": "Already in use"}), 409)
-        elif not url_data["short_code"].__len__() == 6:
+        elif not (url_data["short_code"].__len__() > 6 or (url_data["short_code"].__len__() == 0)):
             return make_response(
                 jsonify({"info": "The provided URL short code is invalid"}), 412
             )
