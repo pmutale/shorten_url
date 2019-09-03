@@ -10,7 +10,7 @@ steps:
     - 'bash'
     - '-c'
     - |
-      cp -r shorten-url/openapi_server config/openapi_server
+      cp -r shorten-url/ config
       cd config/openapi_server
       cp ../../app.yaml .
       cp ../../requirements.txt .
