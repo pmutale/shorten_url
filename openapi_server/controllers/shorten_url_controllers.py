@@ -23,19 +23,19 @@ class UrlShortener:
         random collision disadvantage possible
         :return:
         """
-        if not url_data['short_code']:
+        if not url_data["short_code"]:
             alphabet = string.ascii_letters + string.digits + string.punctuation
             while True:
                 random_id = "".join(secrets.choice(alphabet) for i in range(9))
                 if (
-                        any(c.islower() for c in random_id)
-                        and any(c.isupper() for c in random_id)
-                        and sum(c.isdigit() for c in random_id) >= 3
+                    any(c.islower() for c in random_id)
+                    and any(c.isupper() for c in random_id)
+                    and sum(c.isdigit() for c in random_id) >= 3
                 ):
                     break
             return random_id
         else:
-            return url_data['short_code']
+            return url_data["short_code"]
 
     def shorten(self, url_data):
         """Shorten a URL """
@@ -44,17 +44,24 @@ class UrlShortener:
         entity = datastore.Entity(key=short_code_key)
         exists = self.client.get(key=short_code_key) is not None
         if exists:
-            return make_response(jsonify({'info': 'Already in use'}), 409)
+            return make_response(jsonify({"info": "Already in use"}), 409)
+        elif not url_data["short_code"].__len__() == 6:
+            return make_response(
+                jsonify({"info": "The provided URL short code is invalid"}), 412
+            )
+        elif not url_data["url"]:
+            return make_response(jsonify({"error": "URL not found"}), 400)
         else:
             entity.update(
                 dict(
-                    url=url_data['url'],
+                    url=url_data["url"],
                     short_code=short_code,
                     created=datetime.now(),
-                    redirect_count=0
-                ))
+                    redirect_count=0,
+                )
+            )
             self.client.put(entity=entity)
-            return make_response(jsonify(entity.key.id_or_name), 200)
+            return make_response(jsonify({"short_code": entity.key.id_or_name}), 200)
 
     def redirect(self, short_code):
         """
@@ -62,16 +69,22 @@ class UrlShortener:
         :param short_code: string representing a short code redirect
         """
         code = self.client.get(self.client.key("Urls", short_code))
-        code.update({
-           'last_redirect':  datetime.now()
-        })
-        code['redirect_count'] += 1
+        code.update({"last_redirect": datetime.now()})
+        code["redirect_count"] += 1
         self.client.put(code)
-        return make_response(redirect(code['url']), 302)
+        if not code:
+            return make_response(
+                jsonify({"error": "Provided ShortCode not found"}), 404
+            )
+        return make_response(redirect(code["url"]), 302)
 
     def get_stats(self, short_code):
         """ Get stats of a URL"""
-        stats = self.client.get(self.client.key("Url", short_code))
+        stats = self.client.get(self.client.key("Urls", short_code))
+        if not stats:
+            return make_response(
+                jsonify({"error": "Provided ShortCode not found"}), 404
+            )
         return make_response(jsonify(stats), 200)
 
 
@@ -82,9 +95,7 @@ def shorten_url():
     """ Shorten a URL """
     request = connexion.request
     if request.is_json:
-        url_data = Url.from_dict(
-            request.get_json()
-        )
+        url_data = Url.from_dict(request.get_json())
         return url_instance.shorten(url_data.to_dict())
 
 

@@ -5,7 +5,11 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt /usr/src/app/
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+#RUN apk add --no-cache --virtual .build-deps gcc musl-dev
+
+RUN pip3 install -r requirements.txt
+
+#RUN apk del .build-deps gcc musl-dev
 
 COPY . /usr/src/app
 
