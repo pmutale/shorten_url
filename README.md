@@ -24,7 +24,7 @@ http://localhost:7070/urls/ui/
 Your OpenAPI definition lives here:
 
 ```
-http://localhost:8080/openapi.json
+http://localhost:7070/openapi.json
 ```
 
 To launch the integration tests, use tox:
