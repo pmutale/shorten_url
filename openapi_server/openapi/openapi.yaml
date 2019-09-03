@@ -46,7 +46,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Url'
-          description: Succesfull response - returns all costtypes
+          description: Redirect a url short code to corresponsing URL
         404:
          description: URL Shortcode Not Found
         default:
