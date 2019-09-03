@@ -1,0 +1,113 @@
+openapi: 3.0.2
+info:
+  title: Shorten URL API
+  version: '0.1'
+  description: An API for the expenses app
+  contact:
+    name: Shorten URL
+    url: 'http://shorten-url.appspot.com'
+    email: peter@mutale.nl
+  license:
+    name: GNU GPLv3
+    url: 'https://www.gnu.org/licenses/gpl.txt'
+  x-audience: company-internal
+  x-api-id: 1b66bb9e-5b02-49f1-8cf9-bc3f649d70a6
+servers:
+  - url: /urls
+paths:
+  /shorten:
+    post:
+      description: Create a short URL instance
+      operationId: shorten_url
+      requestBody:
+          $ref: '#/components/requestBodies/UrlFormData'
+      responses:
+          201:
+            description: Succesful!!
+          400:
+            description: URL is not present
+          419:
+            description: URL Shortcode already in use
+          412:
+            description: The provided URL shortcode is invalid
+          default:
+            description: Url shortened successfully!
+      summary: Make Short URL
+      x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
+  /{short_code}:
+    get:
+      description: Redirect a shortcode to a URL
+      operationId: redirect_to_url
+      parameters:
+        - $ref: '#/components/parameters/ShortCode'
+      responses:
+        302:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+          description: Succesfull response - returns all costtypes
+        404:
+         description: URL Shortcode Not Found
+        default:
+          description: Redirected successfully
+      summary: Redirect a shortcode to a URL
+      x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
+
+  /{short_code}/stats:
+    get:
+      description: Retrieve all cost_types
+      operationId: get_short_code_stats
+      parameters:
+        - $ref: '#/components/parameters/ShortCode'
+      responses:
+        200:
+          content:
+            application/json:
+              examples:
+                CostTypes:
+                  value:
+                    CostTypes:
+                      - ctype: some text
+                        cid: ""
+              schema:
+                $ref: '#/components/schemas/Url'
+          description: Succesfull response - returns all costtypes
+        default:
+          description: Cost Types retrieved successfully
+      summary: Get all cost_types
+      x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
+
+components:
+  parameters:
+    ShortCode:
+      name: short_code
+      schema:
+        type: string
+      in: path
+      required: true
+      
+  requestBodies:
+    UrlFormData:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Url'
+      required: true
+  schemas:
+    Url:
+      description: URL data schema
+      example: |-
+          {
+              "url": "http://this.is-a-long-url.com",
+              "short_code": "_23eRd",
+          }
+      properties:
+          url:
+            type: string
+          short_code:
+            type: string
+      required:
+      - url
+      title: Url
+      type: object
