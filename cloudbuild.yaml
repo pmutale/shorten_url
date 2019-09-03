@@ -10,10 +10,10 @@ steps:
     - 'bash'
     - '-c'
     - |
-      cp -r shorten-url/openapi_server config
-      cd config
-      cp ../app.yaml .
-      cp ../requirements.txt .
+      cp -r shorten-url/openapi_server config/openapi_server
+      cd config/openapi_server
+      cp ../../app.yaml .
+      cp ../../requirements.txt .
   
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
