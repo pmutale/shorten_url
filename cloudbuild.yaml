@@ -11,3 +11,4 @@ steps:
       - 'deploy'
       - 'app.yaml'
       - '--project=${PROJECT_ID}'
+  dir: 'openapi_server'
