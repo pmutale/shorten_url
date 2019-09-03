@@ -56,7 +56,7 @@ paths:
 
   /{short_code}/stats:
     get:
-      description: Retrieve all cost_types
+      description: Retrieve all Short Code data
       operationId: get_short_code_stats
       parameters:
         - $ref: '#/components/parameters/ShortCode'
@@ -65,17 +65,20 @@ paths:
           content:
             application/json:
               examples:
-                CostTypes:
+                UrlFacts:
                   value:
-                    CostTypes:
-                      - ctype: some text
-                        cid: ""
+                    UrlFacts:
+                      - url: "http://aurl-anotherlonger.url/sdf/fdff-fdfd-23-55"
+                        short_code: "23-e34"
+                        created: "22012019T11:00:23CEST"
+                        last_redirect: "22032019T11:30:23CEST"
+                        redirect_count: 45
               schema:
                 $ref: '#/components/schemas/Url'
-          description: Succesfull response - returns all costtypes
+          description: Succesfull
         default:
-          description: Cost Types retrieved successfully
-      summary: Get all cost_types
+          description: Data retrieved successfully
+      summary: Get all shortcode facts
       x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
 
 components:
