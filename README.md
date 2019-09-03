@@ -3,6 +3,12 @@
 ## Requirements
 Python 3.5.2+
 
+## App Online, Lazy?
+
+To test live server
+
+ visit [Google App Engine AppSpot](https://shorten-url-usecase.appspot.com/urls/ui/)
+
 ## Usage
 To run the server, please execute the following from the root directory:
 
