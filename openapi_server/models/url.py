@@ -45,18 +45,12 @@ class Url(Model):
 
     @property
     def url(self):
-        """Property the url string
-        :return: The URL text
-        :rtype: str
-        """
+        """Property the url string"""
         return self._url
 
     @url.setter
     def url(self, url):
-        """Sets the url string
-        :param url: A url string
-        :rtype url: str
-        """
+        """Sets the url string"""
         if url is None:
             raise ValueError('URL value must not be empty')
 
