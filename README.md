@@ -7,14 +7,15 @@ Python 3.5.2+
 To run the server, please execute the following from the root directory:
 
 ```
-pip3 install -r requirements.txt
+python3 -m venv venv
+pip install -r requirements.txt
 python3 -m openapi_server
 ```
 
 and open your browser to here:
 
 ```
-http://localhost:8080/ui/
+http://localhost:7070/urls/ui/
 ```
 
 Your OpenAPI definition lives here:
