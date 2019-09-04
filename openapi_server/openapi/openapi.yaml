@@ -100,7 +100,7 @@ components:
   schemas:
     Url:
       description: URL data schema
-      example: |-
+      example:
           {
               "url": "http://this.is-a-long-url.com",
               "short_code": "_23eRd",

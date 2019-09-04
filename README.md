@@ -30,14 +30,9 @@ http://localhost:8080/urls/ui/
 To run unit tests:
 
 ```
-$ python3 -m unittest test_shorten_url_controllers.TestDefaultController 
+$ python3 -m unittest openapi_server.test.test_shorten_url_controllers.TestDefaultController
 ```
 
-To launch the integration tests, use tox:
-```
-$ sudo pip install tox
-$ tox
-```
 
 ## Running with Docker
 
