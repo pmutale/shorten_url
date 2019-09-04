@@ -53,11 +53,11 @@ class UrlShortener:
         entity = datastore.Entity(key=short_code_key)
         exists = self.client.get(key=short_code_key) is not None
         if exists:
-            return make_response(jsonify({"info": "Already in use"}), 409)
+            return make_response(jsonify({"error": "Already in use"}), 409)
         elif not (
                 url_data["short_code"].__len__() in [6, 0]):
             return make_response(
-                jsonify({"info": "The provided URL short code is invalid"}), 412
+                jsonify({"error": "The provided URL short code is invalid"}), 412
             )
         elif not url_data["url"]:
             return make_response(jsonify({"error": "URL not found"}), 400)

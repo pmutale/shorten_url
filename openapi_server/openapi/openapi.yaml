@@ -26,7 +26,7 @@ paths:
             description: Succesful!!
           400:
             description: URL is not present
-          419:
+          409:
             description: URL Shortcode already in use
           412:
             description: The provided URL shortcode is invalid
@@ -53,7 +53,6 @@ paths:
           description: Redirected successfully
       summary: Redirect a shortcode to a URL
       x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
-
   /{short_code}/stats:
     get:
       description: Retrieve all Short Code data
@@ -80,7 +79,6 @@ paths:
           description: Data retrieved successfully
       summary: Get all shortcode facts
       x-openapi-router-controller: openapi_server.controllers.shorten_url_controllers
-
 components:
   parameters:
     ShortCode:
