@@ -24,7 +24,7 @@ $ python3 -m openapi_server
 and open your browser to here:
 
 ```
-http://localhost:7070/urls/ui/
+http://localhost:8080/urls/ui/
 ```
 
 To run unit tests:
